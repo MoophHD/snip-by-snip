@@ -12,6 +12,6 @@ public class Scrolling : MonoBehaviour {
     void Update() {
         pos = tr.position;
         shift = Constants.instance.scrollingSpeed * Time.deltaTime;
-        tr.position = new Vector3(pos.x, pos.y + shift, pos.z);
+        // tr.position = new Vector3(pos.x, pos.y + shift, pos.z);
     }
 }

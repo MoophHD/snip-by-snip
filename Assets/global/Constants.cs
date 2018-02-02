@@ -45,6 +45,7 @@ public class Constants : MonoBehaviour {
 	void Awake() {
 		//per sec
 		_scrollingSpeed = 5f;
+
 		_minCameraBounds = Camera.main.ScreenToWorldPoint(new Vector3(0f, 0f, 0f));
         _maxCameraBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f));
 
