@@ -10,16 +10,6 @@ public class Core : MonoBehaviour  {
     private Rigidbody2D rb;
 
     
-	void OnEnable()
-    {
-		Signals.onNewGame += swapSide;
-    }
-    
-    void OnDisable()
-    {
-		Signals.onNewGame += swapSide;
-    }
-
     void Awake() {
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
@@ -30,22 +20,23 @@ public class Core : MonoBehaviour  {
         rb.freezeRotation = true;
 
         isLeftSide = Random.value < .5 ? true : false;
-        resetSelf();
+
+        setToSide();
     }
 
-    void swapSide() {
-        isLeftSide = !isLeftSide;
-        resetSelf();
-    }
-
-    void resetSelf() {
+    void setToSide() {
         tr.position = new Vector3((isLeftSide ? -marginX : marginX), 0f, 0f);
         rb.velocity = Vector3.zero;
     }
 
     void OnCollisionEnter2D(Collision2D coll) {
         if (coll.gameObject.tag == "wall") {
-            // swapSide();
+            //is on the right wall while current state is on left etc.
+            if ((coll.gameObject.name == "wall_l" && GameReducer.instance.playerSitSide == "right") ||
+                (coll.gameObject.name == "wall_r" && GameReducer.instance.playerSitSide == "left")
+            ) {
+                GameReducer.sit();
+            }
         }
     }
 }

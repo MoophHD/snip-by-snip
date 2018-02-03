@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Signals : MonoBehaviour {
 
-	public delegate void _onJump();
-    public static event _onJump onJump;
-    public static void jump() {onJump();}
-
-
     public delegate void _onNewGame();
     public static event _onNewGame onNewGame;
     public static void newGame() {onNewGame();}
+
+    public delegate void _onGameStart();
+    public static event _onGameStart onGameStart;
+    public static void gameStart() {onGameStart();}
 
 
     //with params

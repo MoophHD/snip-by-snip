@@ -9,31 +9,14 @@ public class Jumping : MonoBehaviour {
 	private float fallMultiplier = 2.25f;
 	private float lowJumpMultiplier = 1.5f;
 
-    private bool isLeftSide;
     private Rigidbody2D rb;
     private Transform tr;
 
-
     void Awake() {
-        isLeftSide = GetComponent<Core>().isLeftSide;
         rb = GetComponent<Rigidbody2D>();
         tr = GetComponent<Transform>();
     }
 	
-	void OnEnable()
-    {
-		Signals.onJump += jump;
-    }
-    
-    void OnDisable()
-    {
-		Signals.onJump += jump;
-    }
-
-    void jump() {
-        rb.AddForce(Vector2.up * 2.5f);
-    }
-
     void Update() {
         if (rb.velocity.y < 0) {
 			rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -41,7 +24,8 @@ public class Jumping : MonoBehaviour {
 			rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
 		}
 
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && GameReducer.instance.playerState == "sit") {
+            bool isLeftSide = GameReducer.instance.playerSitSide == "left";
 
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -51,12 +35,11 @@ public class Jumping : MonoBehaviour {
             Vector2 sideVelocity = (isLeftSide ? Vector2.right : Vector2.left) * sideForce;
 
             if ( Physics.Raycast (ray,out hit,100.0f)) {
-                // Debug.Log("You selected the " + hit.transform.name);
+                //detect click on ui
             }
-            print(upwardsVelocity + sideVelocity);
             rb.velocity = upwardsVelocity + sideVelocity;
 
-            Signals.jump();
+            GameReducer.jump();
         }
     }
 }
