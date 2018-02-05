@@ -19,7 +19,18 @@ public class State : MonoBehaviour {
         }
 	}
 
+	private float _scrollingSpeed;
+	
+	public float scrollingSpeed {
+		get {
+			return _scrollingSpeed;
+		}
+	}
+
+
 	void Awake() {
+		_scrollingSpeed = 3f;
+
 		if (_instance == null)
 			_instance = this;
 		else

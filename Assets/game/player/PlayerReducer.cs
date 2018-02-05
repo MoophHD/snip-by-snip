@@ -4,41 +4,15 @@ using UnityEngine;
 
 //contains both state and delegate actions, experimenting
 //mostly describes player and the board ('cause those are all this game contains, he)
-public class GameReducer : MonoBehaviour {
+public class PlayerReducer : MonoBehaviour {
 
     // in order to get state props
-    private static GameReducer _instance;
-	public static GameReducer instance {
+    private static PlayerReducer _instance;
+	public static PlayerReducer instance {
         get {
             return _instance;
         }
 	}
-
-    //create a class for sit side and state
-    /*
-    private class SitSide {
-        private string side1 = "left";
-        private string side2 = "right";
-        private string _currentSide = "left";
-
-        public SitSide(string startSide) {
-            if ( startSide == side1 || startSide == side2 ) {
-                _currentSide = startSide;
-            }
-        }
-
-        public string Side {
-            get {
-                return _currentSide;
-            }
-        }
-        public void Swap() {
-            _currentSide = _currentSide == side1 ? side2 : side1;
-        }
-        
-    }
-     */
-
 
 	public delegate void onJumpDel();
     public static event onJumpDel onJump;
@@ -58,22 +32,20 @@ public class GameReducer : MonoBehaviour {
     }
 
     // ["left", "right"]
-    private string _playerSitSide;
-    public string playerSitSide {
+    private Side _sitSide;
+    public Side sitSide {
     get {
-        return _playerSitSide;
+        return _sitSide;
         }
     }
     
     void Awake() {
-        _playerSitSide = Random.value < .5 ? "left" : "right";
+        _sitSide = new Side(Random.value < .5 ? "left" : "right");
         _playerState = "sit";
 
         if (_instance == null)
 			_instance = this;
     }
-
-
 
     private void changeState(string state) {
         _playerState = state;
@@ -84,7 +56,7 @@ public class GameReducer : MonoBehaviour {
                 break;
             }
             case "sit": {
-                _playerSitSide = _playerSitSide == "left" ? "right" : "left";
+                _sitSide.Swap();
                 break;
             }
         }

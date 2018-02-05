@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Core : MonoBehaviour  {
+    private Side side;
     public bool isLeftSide;
 
     public float marginX = 2.6f;
@@ -11,6 +12,7 @@ public class Core : MonoBehaviour  {
 
     
     void Awake() {
+        side = PlayerReducer.instance.sitSide;
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         
@@ -18,24 +20,15 @@ public class Core : MonoBehaviour  {
         rb.gravityScale = 0f;
         //disable rotating
         rb.freezeRotation = true;
-
-        isLeftSide = Random.value < .5 ? true : false;
-
-        setToSide();
-    }
-
-    void setToSide() {
-        tr.position = new Vector3((isLeftSide ? -marginX : marginX), 0f, 0f);
-        rb.velocity = Vector3.zero;
     }
 
     void OnCollisionEnter2D(Collision2D coll) {
         if (coll.gameObject.tag == "wall") {
             //is on the right wall while current state is on left etc.
-            if ((coll.gameObject.name == "wall_l" && GameReducer.instance.playerSitSide == "right") ||
-                (coll.gameObject.name == "wall_r" && GameReducer.instance.playerSitSide == "left")
+            if ((coll.gameObject.name == "wall_l" && side.side == side.right) ||
+                (coll.gameObject.name == "wall_r" && side.side == side.left)
             ) {
-                GameReducer.sit();
+                PlayerReducer.sit();
             }
         }
     }

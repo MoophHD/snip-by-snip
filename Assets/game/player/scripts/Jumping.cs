@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Jumping : MonoBehaviour {
+    private Side side;
 
     private float upForce = 7.5f;
-	private float sideForce = 15f;
+	private float sideForce = 25f;
 	private float fallMultiplier = 2.25f;
 	private float lowJumpMultiplier = 1.5f;
 
     private Rigidbody2D rb;
-    private Transform tr;
 
     void Awake() {
+        side = PlayerReducer.instance.sitSide;
         rb = GetComponent<Rigidbody2D>();
-        tr = GetComponent<Transform>();
     }
 	
     void Update() {
@@ -24,8 +24,8 @@ public class Jumping : MonoBehaviour {
 			rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
 		}
 
-        if (Input.GetMouseButtonDown(0) && GameReducer.instance.playerState == "sit") {
-            bool isLeftSide = GameReducer.instance.playerSitSide == "left";
+        if (Input.GetMouseButtonDown(0) && PlayerReducer.instance.playerState == "sit") {
+            bool isLeftSide = side.side == side.left;
 
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -39,7 +39,7 @@ public class Jumping : MonoBehaviour {
             }
             rb.velocity = upwardsVelocity + sideVelocity;
 
-            GameReducer.jump();
+            PlayerReducer.jump();
         }
     }
 }

@@ -34,17 +34,8 @@ public class Constants : MonoBehaviour {
         }
     }
 
-    private float _scrollingSpeed;
-	
-	public float scrollingSpeed {
-		get {
-			return _scrollingSpeed;
-		}
-	}
-
 	void Awake() {
 		//per sec
-		_scrollingSpeed = 5f;
 
 		_minCameraBounds = Camera.main.ScreenToWorldPoint(new Vector3(0f, 0f, 0f));
         _maxCameraBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f));
