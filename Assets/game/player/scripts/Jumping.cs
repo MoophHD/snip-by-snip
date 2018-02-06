@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Jumping : MonoBehaviour {
     private Side side;
@@ -25,6 +26,11 @@ public class Jumping : MonoBehaviour {
 		}
 
         if (Input.GetMouseButtonDown(0) && PlayerReducer.instance.playerState == "sit") {
+            // click on ui
+            if( EventSystem.current.IsPointerOverGameObject() ){
+                return;
+            }
+
             bool isLeftSide = side.side == side.left;
 
             RaycastHit hit;
@@ -34,9 +40,10 @@ public class Jumping : MonoBehaviour {
                                     // current == left ? right : left
             Vector2 sideVelocity = (isLeftSide ? Vector2.right : Vector2.left) * sideForce;
 
-            if ( Physics.Raycast (ray,out hit,100.0f)) {
-                //detect click on ui
+            if ( Physics.Raycast (ray,out hit)) {
+    
             }
+
             rb.velocity = upwardsVelocity + sideVelocity;
 
             PlayerReducer.jump();

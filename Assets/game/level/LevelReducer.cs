@@ -24,7 +24,7 @@ public class LevelReducer : MonoBehaviour {
     
 
     void Awake() {
-        _distanceToGen = 2f;
+        _distanceToGen = 10f;
 
         if (_instance == null)
 			_instance = this;

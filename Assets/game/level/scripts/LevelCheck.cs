@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelCheck : MonoBehaviour {
     public Transform myCamera;
-    private const float checkDelta = 5f;
+    private const float checkDelta = 2.5f;
     private float distanceToGen;
     private float lastGenY;
 
@@ -18,10 +18,9 @@ public class LevelCheck : MonoBehaviour {
     }
 
     void checkCamera() {
-        print( myCamera.position.y - lastGenY );
         if ( myCamera.position.y - lastGenY >= distanceToGen) {
             LevelReducer.gen();
-            lastGenY = myCamera.position.y;
+            lastGenY = lastGenY + distanceToGen;
         }
     }
 }

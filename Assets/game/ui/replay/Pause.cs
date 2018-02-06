@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Replay : MonoBehaviour  {
+public class Pause : MonoBehaviour  {
     public Button btn;
 
     void Start()
@@ -14,6 +14,10 @@ public class Replay : MonoBehaviour  {
 
     void handleClick()
     {
-        State.newGame();
+        if (State.instance.isGameFrozen) {
+            State.unfreeze();
+        } else {
+            State.freeze();
+        }
     }
 }
