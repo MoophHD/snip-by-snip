@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Replay : MonoBehaviour  {
+    [HideInInspector]
     public Button btn;
 
     void Start()
