@@ -15,7 +15,6 @@ public class LevelReducer : MonoBehaviour {
     public static event onGenDel onGen;
     public static void gen() {onGen();}
 
-
     public delegate GameObject onTargetAddDel(float y);
     public static event onTargetAddDel onTargetAdd;
     public static GameObject targetAdd(float y) { return onTargetAdd(y);}
@@ -43,16 +42,13 @@ public class LevelReducer : MonoBehaviour {
     //prefab
     public GameObject target;
     public List<GameObject> targets;
-    
+
     void Awake() {
         targets = new List<GameObject>();
         _maxTargets = 20;
         _distanceToGen = 10f;
 
-
         if (_instance == null)
 			_instance = this;
     }
-
-    
 }

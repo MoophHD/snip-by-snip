@@ -16,6 +16,7 @@ public class LevelGen : MonoBehaviour {
         maxTargets = LevelReducer.instance.maxTargets;
 
         distanceToGen = LevelReducer.instance.distanceToGen;
+
         GameObject firstTarget = LevelReducer.targetAdd(distanceToGen * 2f);
         targetHeight = firstTarget.GetComponent<LevelTarget>().height;
 
@@ -29,6 +30,7 @@ public class LevelGen : MonoBehaviour {
     void OnDisable() {
         LevelReducer.onGen -= gen;
     }
+    
     void gen() {
         for (int i = 0; i < genNum; i++) {
             GameObject lastTarget = targets[targets.Count - 1];

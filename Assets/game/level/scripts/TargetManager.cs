@@ -16,11 +16,13 @@ public class TargetManager : MonoBehaviour {
     void OnEnable() {
         LevelReducer.onTargetAdd += (y) => { return addTarget(y); };
         LevelReducer.onTargetHit += (id) => { removeTarget(id);};
+        State.onNewGame += clear;
     }
 
     void OnDisable() {
         LevelReducer.onTargetAdd -= (y) => { return addTarget(y); };
         LevelReducer.onTargetHit -= (id) => { removeTarget(id);};
+        State.onNewGame -= clear;
     }
 
     GameObject addTarget(float y) {
@@ -42,6 +44,15 @@ public class TargetManager : MonoBehaviour {
                 Destroy(currTarget);
             }
 
+        }
+    }
+
+    public void clear() {
+        GameObject currTarget;
+        for (int i = 0; i < targets.Count; i++) {
+            currTarget = targets[i];
+            targets.RemoveAt(i);
+            Destroy(currTarget);
         }
     }
 }

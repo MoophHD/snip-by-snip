@@ -47,15 +47,10 @@ public class State : MonoBehaviour {
     public static event _onNewGame onNewGame;
     public static void newGame() {onNewGame();}
 
-    public delegate void _onGameStart();
-    public static event _onGameStart onGameStart;
-    public static void gameStart() {onGameStart();}
-
 	void OnEnable() {
  		onFreeze += () => { Time.timeScale = 0; _isGameFrozen = true; };
         onUnfreeze += () => { Time.timeScale = 1; _isGameFrozen = false; };
 
-		//placeholder
         onNewGame += () => { freeze(); };
     }
 
@@ -67,12 +62,16 @@ public class State : MonoBehaviour {
     }
 
 	void Awake() {
-		_scrollingSpeed = 5f;
+		_scrollingSpeed = 7f;
 		_isGameFrozen = true;
 
 		if (_instance == null)
 			_instance = this;
 		else
 			Destroy(gameObject);
+	}
+
+	void Start() {
+		newGame();
 	}
 }

@@ -25,4 +25,10 @@ public class LevelTarget : MonoBehaviour {
             LevelReducer.targetHit(id);
         }
     }
+
+    void OnCollisionEnter2D(Collision2D coll) {
+        if (coll.gameObject.tag == "bottomPad") {
+            State.newGame();
+        }
+    }
 }
