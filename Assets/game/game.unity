@@ -461,6 +461,16 @@ Prefab:
       propertyPath: m_TagString
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 114482269354771940, guid: 6d1d93fcc7ba2a94ba391ea86e0d2174,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114812141925064572, guid: 6d1d93fcc7ba2a94ba391ea86e0d2174,
+        type: 2}
+      propertyPath: playerDownForce
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d1d93fcc7ba2a94ba391ea86e0d2174, type: 2}
   m_IsPrefabParent: 0
@@ -632,6 +642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21414d54350e32647bca1cfa38b79c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetSpaceHeight: 0
+  maxGenNum: 0
 --- !u!114 &785910581
 MonoBehaviour:
   m_ObjectHideFlags: 0
